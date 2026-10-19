@@ -237,7 +237,7 @@ Endpoints MUST NOT:
 
 - Validate or verify authentication tokens.
 
-- Call Supabase Auth or any other authentication provider directly.
+- Call any authentication provider directly.
 
 - Reimplement authentication logic already handled by the global authentication middleware.
 
