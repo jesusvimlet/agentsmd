@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Version: 0.0.6
+Version: 0.0.7
 
 This file defines my default stack, workflow, and non-negotiable rules.
 
@@ -62,6 +62,8 @@ Read it fully before doing any work in this repository.
 * `git init` on a brand-new project is allowed, but no commits.
 
 ## 2. Stack
+
+These technologies and instructions are reusable standards: they apply, and remain mandatory, only when the corresponding technologies, components, or architectural capabilities are present in the consuming project. Listing them here does not require their adoption, installation, or introduction; instructions for absent technologies or components do not apply.
 
 | Layer           | Choice                                                                                                             |
 | --------------- | ------------------------------------------------------------------------------------------------------------------ |
