@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Version: 0.0.9
+Version: 0.0.10
 
 This file defines my default stack, workflow, and non-negotiable rules.
 
@@ -307,14 +307,26 @@ When I ask for a new project, set up in this order:
 
 * [ ] NO `git add`/`commit`/`push` performed unless I explicitly said "push" (§1)
 
-## 10. Temporary workspace for agent-created files
+## 10. Agent workspace
 
-* Never create temporary diagnostic, debugging, experimental, reproduction, or ad-hoc test files in the repository root or anywhere in the production/test source tree.
+The `.agent/` directory is the designated workspace for documents, reports, investigations, diagnostics, and other working artifacts created by any AI agent, regardless of the agent or tool being used.
 
-* All temporary files created only to investigate or verify something must go under `.opencode/tmp/`.
+Agent-generated working artifacts MUST be organized into appropriate subdirectories under `.agent/`, never scattered across the project root or application source directories.
 
-* `.opencode/tmp/` is disposable workspace and must never contain permanent project tests or production code.
+Default organization:
 
-* Permanent tests belong under the existing `test/` structure.
+- `.agent/discover/` — Investigations, research, analysis, and technical findings.
+- `.agent/issues/` — Identified problems, bug investigations, and issue reports.
+- `.agent/tmp/` — Temporary diagnostics, experiments, reproductions, and disposable files.
 
-* Delete temporary files when they are no longer useful.
+These directories are examples, not an exhaustive list. Agents MAY create additional subdirectories under `.agent/` when appropriate, using clear, descriptive names.
+
+Rules:
+
+1. Every investigation or research task MUST create or update a corresponding Markdown report under `.agent/discover/`, unless the user explicitly specifies another output location.
+2. Issue investigations and problem reports SHOULD be stored under `.agent/issues/` when their primary purpose is documenting a specific problem.
+3. Temporary files MUST be created under `.agent/tmp/` and removed when no longer needed.
+4. Agent-generated documents MUST use descriptive filenames and remain organized by purpose.
+5. Permanent application code, project documentation, configuration, and tests MUST remain in their normal project locations. The `.agent/` directory is exclusively for agent working artifacts.
+6. Agents MUST NOT create working documents or temporary files in the repository root or production/test source directories.
+7. Explicit user instructions specifying a different output location take precedence over these default locations.
