@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with an Express-based HTTP server.
+
 The rules in this document apply to:
 
 `server/**`
@@ -20,9 +22,9 @@ It is responsible for:
 
 * Installing global middleware.
 
-* Establishing the public/protected route boundary.
+* Establishing the public/protected REST route boundary when the project has protected REST endpoints.
 
-* Registering endpoint routers.
+* Registering endpoint routers when the project exposes REST endpoints.
 
 * Installing the global error middleware.
 
@@ -36,7 +38,7 @@ Business logic MUST NOT be added to `index.js`.
 
 Middleware and routes in `index.js` MUST preserve their execution order.
 
-The expected pipeline is:
+Static serving, REST endpoint registration, and authentication middleware apply only when the corresponding project capabilities exist. The request-protection, sanitization, and rate-limiting requirements below apply to REST endpoints. Applicable stages MUST preserve this relative order:
 
 `express.json → static files → rate limit → sanitize → public endpoints → authentication → protected endpoints → error middleware`
 
@@ -59,6 +61,8 @@ Sanitization MUST remain before application routes so handlers and endpoints rec
 Endpoints MUST NOT implement replacements for these global protections.
 
 ## Authentication Boundary
+
+This section applies to projects with protected REST endpoints.
 
 The position of `authMiddleware` in `index.js` defines the authentication boundary.
 
@@ -88,7 +92,7 @@ The agent MUST NOT move `authMiddleware`, move routes across the authentication 
 
 ## Authentication Context
 
-For protected REST requests, `authMiddleware` validates the supplied Supabase authentication token.
+For protected REST requests, `authMiddleware` MUST validate the supplied authentication credentials using the project's configured authentication provider.
 
 After successful authentication it establishes:
 
@@ -101,7 +105,7 @@ req.user = {
 
 Endpoints MAY consume this authentication context and pass the required identity information to their corresponding handlers.
 
-Endpoints MUST NOT duplicate token verification already performed by the global authentication middleware.
+Endpoints MUST NOT duplicate authentication verification already performed by the global authentication middleware.
 
 Failure to authenticate MUST prevent execution of the protected endpoint.
 
@@ -163,15 +167,15 @@ Unexpected errors MUST result in a generic server error response without exposin
 
 ## Route Registration
 
-Endpoint routers are registered from `index.js`.
+When the project exposes REST endpoints, endpoint routers are registered from `index.js`.
 
-Route registration determines whether an endpoint is public or protected based on its position relative to `authMiddleware`.
+When authentication is required for REST endpoints, route registration determines whether an endpoint is public or protected based on its position relative to `authMiddleware`.
 
 When adding a new endpoint router, the agent MUST:
 
 1. Determine whether the endpoint is public or protected.
 
-2. Register it on the correct side of the authentication boundary.
+2. Register it on the correct side of the authentication boundary when authentication is required.
 
 3. Preserve global rate limiting and sanitization.
 

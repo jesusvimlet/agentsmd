@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with a browser-based web application.
+
 The rules in this document apply only to files under:
 
 `src/webapp/**`
@@ -76,11 +78,11 @@ Detailed CSS naming and prefix conventions are defined by `agents/webapp-css.md`
 
 ## Backend communication
 
-The webapp MUST communicate with the backend through REST endpoints and the authenticated Socket.IO interface.
+REST, Socket.IO, and authentication are independent, optional capabilities; none is required solely because a frontend exists.
 
 REST communication MUST be centralized through the API modules defined under `js/api/`.
 
-Socket.IO communication MUST be centralized in `js/api/socket.mjs`, using the existing Supabase session. Views consume application state and MUST NOT open sockets.
+Socket.IO communication MUST be centralized in `js/api/socket.mjs`. When authentication is required, it MUST reuse the project's existing authenticated session. Views consume application state and MUST NOT open sockets.
 
 Views, components, and other frontend modules MUST NOT communicate directly with backend persistence or reproduce backend business logic.
 
@@ -137,6 +139,6 @@ Responsive behavior SHOULD be implemented with CSS whenever possible.
 
 Frontend behavior MUST be covered by functional tests under `test/functional/` using Jest and Puppeteer as defined by the repository root `AGENTS.md`.
 
-Functional tests SHOULD exercise real user-visible flows through the SPA and its REST integration rather than bypassing application layers.
+Functional tests SHOULD exercise real user-visible flows through the SPA and any REST or Socket.IO integration used by the project rather than bypassing application layers.
 
 All global rules from the repository root `AGENTS.md` remain applicable.

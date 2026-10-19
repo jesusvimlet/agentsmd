@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with automated application tests.
+
 The rules in this document apply only to files under:
 
 `test/**`
@@ -16,11 +18,13 @@ Tests are divided into:
 
 ## Functional Tests
 
-Functional tests MUST test the real running application through its public HTTP interface.
+The following running-application requirements apply to functional tests of the project's HTTP or Socket.IO interfaces; they do not require either interface to exist.
 
-Socket.IO functional tests exercise the same running application's authenticated public Socket.IO interface, using the real client protocol. Real Supabase Auth fixture users/sessions may be provisioned through its Auth HTTP interface and must be tracked/removed; application authentication is never mocked. Ephemeral presence requires no domain database fixtures.
+Functional tests MUST test the real running application through the corresponding public interface.
 
-They MUST exercise the real application flow when those layers participate in the tested operation:
+Socket.IO functional tests exercise the same running application's public Socket.IO interface, using the real client protocol. When authentication is required, tests MUST use real authenticated sessions. Real fixture users/sessions may be provisioned through the configured authentication provider's public authentication interface and must be tracked/removed; application authentication is never mocked. Ephemeral presence requires no domain database fixtures.
+
+HTTP functional tests MUST exercise the real application flow when those layers participate in the tested operation:
 
 `HTTP request → endpoint → handler → persistence → HTTP response`
 
@@ -42,9 +46,11 @@ Functional tests MUST NOT:
 
 - Mock endpoints, handlers, persistence, authentication, or database.
 
-The application MUST already be running before functional tests execute.
+The application MUST already be running before HTTP or Socket.IO functional tests execute.
 
 ## Application URL
+
+The following URL requirements apply to functional tests connecting to an HTTP or Socket.IO application interface.
 
 Functional tests MUST connect to the running application using the existing application environment configuration.
 
@@ -164,7 +170,7 @@ This includes behavior involving:
 
 - Other browser-managed state.
 
-Browser-based tests MUST interact with the application through HTTP and MUST NOT bypass the public application interface.
+Browser-based tests MUST interact with the application through its public HTTP or Socket.IO interfaces, as used by the tested flow, and MUST NOT bypass the public application interface.
 
 ## Test Helpers
 
@@ -216,7 +222,7 @@ Unit tests MUST NOT:
 
 - Become functional tests by exercising the complete application stack.
 
-Functional tests verify application behavior through the external HTTP boundary.
+HTTP and Socket.IO functional tests verify application behavior through their corresponding public interfaces.
 
 Unit tests verify isolated business logic.
 

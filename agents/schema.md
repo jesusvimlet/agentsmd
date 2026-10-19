@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with backend validation schemas.
+
 The rules in this document apply only to files under:
 
 `server/schema/**`
@@ -110,7 +112,7 @@ Persistence schema usage and loading rules are defined by:
 
 ## Schema Ownership
 
-Socket.IO schemas live directly under `server/schema/socket/`, one external contract per handshake role or event. `server/lib/socket.js` loads them once and validates supplied arguments with `schemaHandler.validate(schema, data)` before delegation. Authentication identity and business authorization are not schema responsibilities.
+When Socket.IO is used, its schemas live directly under `server/schema/socket/`, one external contract per handshake role or event. `server/lib/socket.js` loads them once and validates supplied arguments with `schemaHandler.validate(schema, data)` before delegation. Authentication identity and business authorization are not schema responsibilities.
 
 Schemas MUST remain external to application implementation files.
 
@@ -120,7 +122,7 @@ Persistence schemas MUST NOT be duplicated or hardcoded inside persistence modul
 
 Handlers MUST NOT define or own endpoint or persistence schemas.
 
-Schema filenames and paths MUST correspond to the entity and operation they represent.
+Schema filenames and paths MUST correspond to the endpoint entity and operation, persistence entity, or Socket.IO event or handshake role they represent.
 
 ## Schema Infrastructure
 

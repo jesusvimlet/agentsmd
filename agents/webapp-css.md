@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with a CSS-styled web application.
+
 The rules in this document apply only to files under:
 
 `src/webapp/css/**`

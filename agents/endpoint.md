@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with a REST endpoint layer.
+
 The rules in this document apply only to files under:
 
 `server/endpoint/**`

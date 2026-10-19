@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Version: 0.0.7
+Version: 0.0.8
 
 This file defines my default stack, workflow, and non-negotiable rules.
 
@@ -126,7 +126,7 @@ test/
 
 * Only `persistence/` may perform application runtime database access or import the database client/SDK.
 
-* Supabase authentication infrastructure is an explicit exception: it MAY use the Supabase client outside `persistence/` exclusively for authentication operations such as verifying the authenticated user. This exception MUST NOT be used for application/domain database access.
+* Authentication infrastructure is an explicit exception: it MAY use its provider's SDK outside `persistence/` exclusively for authentication operations such as verifying the authenticated user. This exception MUST NOT be used for application/domain database access.
 
 * `server/lib/` contains genuinely shared server infrastructure or utilities and MAY be used by server layers where appropriate.
 
@@ -134,7 +134,7 @@ test/
 
 * Layer-specific AGENTS.md files may impose stricter entity boundaries and dependency rules than this general structure.
 
-* When `src/webapp` exists, it talks to the backend through public REST endpoints and the authenticated Socket.IO interface. Real-time communication is centralized in `js/api/socket.mjs`; transport infrastructure delegates plain data to `server/handler/socket.js`. Live presence is ephemeral.
+* When `src/webapp` exists, REST, Socket.IO, and authentication are independent, optional capabilities. REST communication uses public REST endpoints. Socket.IO communication is centralized in `js/api/socket.mjs`; transport infrastructure delegates plain data to `server/handler/socket.js`. When authentication is required, Socket.IO MUST reuse the project's existing authenticated session. Live presence is ephemeral.
 
 ## 4. Testing (mandatory, no exceptions)
 
@@ -235,7 +235,7 @@ test/
 
 * When persistence is required, use the database client or abstraction selected by the project and keep application/domain database access behind `persistence/`.
 
-* Supabase authentication infrastructure may use the Supabase client outside `persistence/` exclusively for authentication operations.
+* Authentication infrastructure may use its provider's SDK outside `persistence/` exclusively for authentication operations.
 
 * Do NOT invent or install a package named `database` or treat "PostgreSQL-compatible database" as a dependency name.
 

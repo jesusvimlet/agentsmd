@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with browser-side JavaScript.
+
 The rules in this document apply only to files under:
 
 `src/webapp/js/**`
@@ -87,7 +89,7 @@ Views and components SHOULD return or compose DOM nodes rather than serialized H
 
 ## Backend communication
 
-Frontend code MUST communicate with the backend through REST endpoints and the authenticated Socket.IO interface, as required by the repository root `AGENTS.md`.
+REST, Socket.IO, and authentication are independent, optional capabilities; none is required solely because a frontend exists.
 
 All REST calls MUST be centralized under:
 
@@ -119,7 +121,7 @@ Direct use of `fetch` outside `js/api/` is forbidden.
 
 When multiple parts of the application require the same backend operation, they MUST reuse the corresponding entity API function rather than implementing duplicate requests.
 
-API modules are responsible for backend communication. `js/api/socket.mjs` owns the shared Socket.IO client and session/connection lifecycle. API modules MUST NOT contain UI logic or reproduce backend business logic.
+API modules are responsible for backend communication. When Socket.IO is used, `js/api/socket.mjs` owns the shared Socket.IO client and session/connection lifecycle. When authentication is required, Socket.IO MUST reuse the project's existing authenticated session. API modules MUST NOT contain UI logic or reproduce backend business logic.
 
 ## Styling
 

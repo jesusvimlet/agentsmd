@@ -42,5 +42,15 @@ Use the exact repository-relative file path, such as `AGENTS.md` or `agents/hand
 
 - [ ] TODO
   - **Target:** `AGENTS.md`
-  - **Section:** `## Stack` (existing heading: `## 2. Stack`)
+  - **Section:** `## 2. Stack`
   - **Action:** Review the existing conditional stack configuration and decide whether any additional project-specific technologies or rules need to be added. If additions are needed, add them to the appropriate instruction section. Otherwise, remove this TODO after review.
+
+- [ ] TODO
+  - **Target:** `agents/server.md`
+  - **Section:** `## Authentication Context`
+  - **Action:** If the project requires authentication, select and configure its authentication provider and add any provider-specific instructions needed by the existing authentication architecture. Remove this TODO after review. If the project does not require authentication, remove the TODO without introducing an authentication provider.
+
+- [ ] TODO
+  - **Target:** `AGENTS.md`
+  - **Section:** `## 6. Dependencies`
+  - **Action:** If the project requires persistence, select the database engine and client or abstraction, and document any project-specific database configuration or rules in the appropriate instruction section. Remove this TODO after review. If persistence is not required, remove the TODO without introducing a database.

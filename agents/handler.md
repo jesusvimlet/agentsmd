@@ -2,6 +2,8 @@
 
 ## Scope
 
+This document applies only to projects with a business-logic handler layer.
+
 The rules in this document apply only to files under:
 
 `server/handler/**`
@@ -20,7 +22,7 @@ Each main handler MUST:
 
 1. Receive the data and user context required for the operation from its corresponding endpoint or another main handler.
 
-   The shared `handler/socket.js` also receives authenticated plain data from `server/lib/socket.js`. It owns authorization/business rules for both Desktop and Web clients; Socket.IO objects, room adapters, transport timers, and acknowledgement callbacks remain in infrastructure.
+   When Socket.IO is used, the shared `handler/socket.js` also receives plain data from `server/lib/socket.js`, including trusted authenticated identity when authentication is required. It owns authorization/business rules for the project's supported clients; Socket.IO objects, room adapters, transport timers, and acknowledgement callbacks remain in infrastructure.
 
 2. Perform and orchestrate all business logic required by the operation.
 
