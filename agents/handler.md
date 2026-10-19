@@ -96,13 +96,13 @@ Never:
 
 ## Persistence Results
 
-Persistence returns the complete result produced by its adapter.
+Persistence returns the complete meaningful result through the established application-facing contract, including all application-relevant data and metadata. Database-specific driver structures MUST NOT leak into handlers.
 
 The main handler is responsible for consuming and interpreting that result.
 
 The handler MAY extract data, inspect persistence metadata, transform the result as required by the business operation, and decide what result is returned to its caller.
 
-Persistence result filtering or interpretation MUST NOT be pushed down into persistence merely to simplify the handler.
+Business filtering or interpretation of persistence results MUST NOT be pushed down into persistence merely to simplify the handler.
 
 ## Clean Handlers
 

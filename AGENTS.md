@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Version: 0.0.8
+Version: 0.0.9
 
 This file defines my default stack, workflow, and non-negotiable rules.
 
@@ -82,7 +82,7 @@ const express = require('express');
 const helmet = require('helmet');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.use(helmet());
 
@@ -262,6 +262,8 @@ coverage/
 ```
 
 ## 8. New project bootstrap
+
+Bootstrap steps apply only when their corresponding components or capabilities are required by the project; applicable stack standards in §2 remain mandatory.
 
 When I ask for a new project, set up in this order:
 
