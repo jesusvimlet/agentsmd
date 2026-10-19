@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Version: 0.0.10
+Version: 0.0.1
 
 This file defines my default stack, workflow, and non-negotiable rules.
 
@@ -323,8 +323,8 @@ These directories are examples, not an exhaustive list. Agents MAY create additi
 
 Rules:
 
-1. Every investigation or research task MUST create or update a corresponding Markdown report under `.agent/discover/`, unless the user explicitly specifies another output location.
-2. Issue investigations and problem reports SHOULD be stored under `.agent/issues/` when their primary purpose is documenting a specific problem.
+1. General investigations, research, and technical analysis MUST create or update a Markdown report under `.agent/discover/`, except when rule 2 applies.
+2. Investigations focused on a specific bug, issue, or malfunction MUST create or update a Markdown report under `.agent/issues/`.
 3. Temporary files MUST be created under `.agent/tmp/` and removed when no longer needed.
 4. Agent-generated documents MUST use descriptive filenames and remain organized by purpose.
 5. Permanent application code, project documentation, configuration, and tests MUST remain in their normal project locations. The `.agent/` directory is exclusively for agent working artifacts.
