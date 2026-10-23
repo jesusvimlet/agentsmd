@@ -127,6 +127,42 @@ Locale loading, translation resolution, fallback behavior, and active-locale man
 
 Adding a new supported language MUST only require adding its locale data and registering/selecting the locale where necessary; application views MUST NOT require language-specific changes.
 
+## SEO and document metadata
+
+Every project with a web application MUST implement baseline SEO and document metadata. A SPA is not an exception.
+
+The HTML entry document MUST include the following in `<head>`:
+
+- `<meta charset="utf-8">`.
+
+- `<meta name="viewport" content="width=device-width, initial-scale=1">`.
+
+- A meaningful, page-specific `<title>`.
+
+- A non-empty, page-specific `<meta name="description">` describing the actual content.
+
+The `<html lang>` attribute MUST match the document's active locale. Titles, descriptions, and other human-readable metadata MUST use the shared internationalization system, including values supplied in the initial HTML.
+
+Public pages intended for indexing MUST additionally include:
+
+- `<link rel="canonical">` identifying the preferred absolute URL for the current content, excluding tracking parameters and transient UI state.
+
+- Open Graph metadata: `og:title`, `og:description`, `og:type`, and `og:url`. When a representative share image is available, include `og:image` and `og:image:alt`.
+
+- Social card metadata: `twitter:card`, `twitter:title`, and `twitter:description`, plus `twitter:image` and `twitter:image:alt` when an image is available. The card type MUST match the available content.
+
+Canonical and social metadata URLs MUST be absolute and use the project's configured public origin for application-owned resources. Metadata MUST describe the current page rather than repeat generic application defaults across all public URLs.
+
+Indexing MUST be intentional. Private application views and non-production deployments MUST use `noindex` through a robots meta tag or the `X-Robots-Tag` HTTP response header. Public production pages intended for search MUST NOT accidentally inherit `noindex`.
+
+SPA metadata management MUST be centralized in a shared module. Initial loading, route changes, browser Back/Forward navigation, and locale changes MUST keep the title, description, language, canonical URL, social metadata, and indexing policy consistent with the current view. Existing tags MUST be updated or removed rather than accumulating duplicate or stale tags.
+
+Public URLs requiring distinct search results or social previews MUST expose their page-specific metadata in the initial HTML response. Client-side tag updates alone MUST NOT be treated as sufficient for crawlers that do not execute JavaScript.
+
+Each rendered page or view MUST have one descriptive primary `<h1>` and a logical `<h2>`–`<h6>` hierarchy. Heading levels MUST reflect content structure rather than visual styling.
+
+Links to public pages MUST use real `<a href>` URLs so crawlers can discover them. Informative images MUST have meaningful alternative text; decorative images MUST use empty alternative text.
+
 ## Responsive design
 
 The entire web application MUST be responsive.
@@ -140,5 +176,7 @@ Responsive behavior SHOULD be implemented with CSS whenever possible.
 Frontend behavior MUST be covered by functional tests under `test/functional/` using Jest and Puppeteer as defined by the repository root `AGENTS.md`.
 
 Functional tests SHOULD exercise real user-visible flows through the SPA and any REST or Socket.IO integration used by the project rather than bypassing application layers.
+
+When creating or changing pages, navigation, or locale behavior, relevant functional tests MUST verify document metadata and heading structure on direct entry and SPA navigation, including Back/Forward and locale changes where applicable. Public-page metadata required in the initial HTML MUST also be checked through the HTTP response without executing JavaScript.
 
 All global rules from the repository root `AGENTS.md` remain applicable.
