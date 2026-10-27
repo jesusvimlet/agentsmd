@@ -26,6 +26,18 @@ Read it fully before doing any work in this repository.
 
 * This file keeps its own simple versioning to track its progress: any edit bumps it, PATCH by default, one bump per task — unpublished edits share one bump until pushed.
 
+## Repository language (mandatory)
+
+* All repository documentation and development artifacts MUST be written in English, regardless of the language used in the conversation or the agent/tool being used.
+
+* This includes READMEs, instruction files, specifications, research, analysis, plans, reports, issue investigations, and temporary notes, including all artifacts under `.agent/`, whether tracked by Git or not.
+
+* Source code MUST use English for identifiers, comments, docstrings, test names and descriptions, log messages, and developer-facing error messages. Descriptive filenames and directory names MUST also use English.
+
+* When application localization is present, translation values MUST use their target locale as required by the project's internationalization rules; translation keys and surrounding code MUST remain in English.
+
+* Conversational replies SHOULD follow the user's language unless requested otherwise. Using another language in the conversation MUST NOT be treated as a request to change the repository language.
+
 ## 0. Read project-specific instructions FIRST
 
 * If an `agents/` directory exists in the project root, you MUST read **all files inside it, recursively** before starting any task. It contains project-specific instructions that complement this file.
@@ -296,6 +308,8 @@ When I ask for a new project, set up in this order:
 ## 9. Definition of done (check before reporting a task complete)
 
 * [ ] Project `agents/` directory read recursively (if present)
+
+* [ ] Repository language requirements respected, including `.agent/` artifacts
 
 * [ ] Structure and layering respected (§3)
 
